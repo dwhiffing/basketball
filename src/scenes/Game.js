@@ -12,17 +12,18 @@ export default class extends Phaser.Scene {
   }
 
   create() {
-    this.scoreText = this.add.text(
-      this.width / 2 - 40,
-      this.height / 2 - 570,
-      '0',
-      { fontSize: 120, color: '#efefef' },
-    )
+    this.score = 0
+    this.scoreText = this.add
+      .text(this.width / 2, this.height / 2 - 510, `${this.score}`, {
+        fontSize: 120,
+        color: '#efefef',
+        align: 'center',
+      })
+      .setOrigin(0.5)
     this.scoreText.setShadow(2, 2, '#555', 2, true, true)
 
     this.ball = new Ball(this)
     this.hoop = new Hoop(this)
-    this.score = 0
     this.input.on('pointerup', ({ downX, downY, upX, upY }) => {
       const diffX = upX - downX
       const diffY = downY - upY

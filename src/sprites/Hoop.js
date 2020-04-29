@@ -10,17 +10,6 @@ export default class {
       .image(this.scene.width / 2, this.scene.height / 2 - 410, 'rim')
       .setScale(3)
 
-    this.scene.matter.world.on('collisionstart', function (event) {
-      const pair = event.pairs[0]
-      const ball = pair.bodyA.label === 'Circle Body' ? pair.bodyA : pair.bodyB
-      const sensor =
-        pair.bodyA.label === 'Rectangle Body' ? pair.bodyA : pair.bodyB
-      if (!ball.isSensor && sensor.isSensor) {
-        this.scene.setScore(this.scene.score + 1)
-        this.scene.missed = false
-      }
-    })
-
     this.sensor = this.scene.matter.add.rectangle(
       this.scene.width / 2,
       this.scene.height / 2 - 350,
@@ -31,6 +20,32 @@ export default class {
         isSensor: true,
       },
     )
+    this.sensor.label = 'hoop'
+
+    this.scene.matter.world.on('collisionactive', function (event) {
+      const pair = event.pairs[0]
+      let ball, hoop
+      if (pair.bodyA.label === 'ball') {
+        ball = pair.bodyA
+      }
+      if (pair.bodyB.label === 'ball') {
+        ball = pair.bodyB
+      }
+      if (pair.bodyA.label === 'hoop') {
+        hoop = pair.bodyA
+      }
+      if (pair.bodyB.label === 'hoop') {
+        hoop = pair.bodyB
+      }
+      if (!ball || !hoop) {
+        return
+      }
+      if (ball.velocity.y > 0 && hoop.isSensor && !this.scene.hasScored) {
+        this.scene.setScore(this.scene.score + 1)
+        this.scene.hasScored = true
+        this.scene.missed = false
+      }
+    })
 
     for (let i of [-140, 140]) {
       this.scene.matter.add

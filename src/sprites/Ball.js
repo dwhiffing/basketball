@@ -7,7 +7,6 @@ export default class extends Phaser.Physics.Matter.Sprite {
     this.scene = scene
     this.reset = this.reset.bind(this)
     this.shoot = this.shoot.bind(this)
-    this.isFirst = true
     this.setVisible(false)
       .setCircle()
       .setFriction(BALL.friction)
@@ -21,24 +20,33 @@ export default class extends Phaser.Physics.Matter.Sprite {
       .setIgnoreGravity(true)
       .setVisible(true)
 
+    this.body.label = 'ball'
+
     if (this.scene.missed) {
       this.scene.setScore(0)
     }
 
     this.scene.missed = true
-    this.canShoot = true
-
+    this.canShoot = false
+    const positionRange = Math.min(
+      this.scene.width / 2 - 100,
+      this.scene.score * 50,
+    )
     this.scene.tweens.add({
       targets: this,
-      x: this.isFirst
-        ? this.scene.width / 2
-        : Phaser.Math.RND.between(100, this.scene.width - 100),
+      x: Phaser.Math.RND.between(
+        this.scene.width / 2 - positionRange,
+        this.scene.width / 2 + positionRange,
+      ),
       y: this.scene.height / 2 + 600,
       scale: BALL.foregroundScale,
+      onComplete: () => {
+        this.scene.hasScored = false
+        this.canShoot = true
+      },
       ease: 'Back.Out',
       duration: 300,
     })
-    this.isFirst = false
   }
 
   shoot(x) {
@@ -46,6 +54,7 @@ export default class extends Phaser.Physics.Matter.Sprite {
       return
     }
     this.canShoot = false
+    this.scene.hasScored = false
     this.setVelocity(x, BALL.impulseVelocity)
       .setIgnoreGravity(false)
       .setSensor(true)
