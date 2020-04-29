@@ -5,7 +5,7 @@ export default class extends Phaser.Scene {
 
   preload() {
     const progress = this.add.graphics()
-    
+
     this.load.on('progress', (value) => {
       progress.clear()
       progress.fillStyle(0xffffff, 1)
@@ -23,7 +23,10 @@ export default class extends Phaser.Scene {
     // )
 
     // this.load.audio('game', 'assets/audio/game.mp3')
-    // this.load.image('background', 'assets/images/background2.gif')
+    this.load.image('ball', 'assets/images/ball.png')
+    this.load.image('dot', 'assets/images/dot.png')
+    this.load.image('rim', 'assets/images/rim.png')
+    this.load.image('hoop', 'assets/images/hoop.png')
 
     this.load.on('complete', () => {
       // WebFont.load({
@@ -31,9 +34,9 @@ export default class extends Phaser.Scene {
       //     families: ['Space Mono'],
       //   },
       //   active: () => {
-          progress.destroy()
-          this.scene.start('Menu')
-        },
+      progress.destroy()
+      this.scene.start('Game')
+      // },
       // })
     })
   }
