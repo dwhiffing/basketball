@@ -7,6 +7,7 @@ export default class extends Phaser.Physics.Matter.Sprite {
     this.scene = scene
     this.reset = this.reset.bind(this)
     this.shoot = this.shoot.bind(this)
+    this.isFirst = true
     this.setVisible(false)
       .setCircle()
       .setFriction(BALL.friction)
@@ -25,19 +26,27 @@ export default class extends Phaser.Physics.Matter.Sprite {
     }
 
     this.scene.missed = true
+    this.canShoot = true
 
     this.scene.tweens.add({
       targets: this,
-      x: this.scene.width / 2,
+      x: this.isFirst
+        ? this.scene.width / 2
+        : Phaser.Math.RND.between(100, this.scene.width - 100),
       y: this.scene.height / 2 + 600,
       scale: BALL.foregroundScale,
       ease: 'Back.Out',
       duration: 300,
     })
+    this.isFirst = false
   }
 
-  shoot() {
-    this.setVelocity(Phaser.Math.RND.between(-3, 3), BALL.impulseVelocity)
+  shoot(x) {
+    if (!this.canShoot) {
+      return
+    }
+    this.canShoot = false
+    this.setVelocity(x, BALL.impulseVelocity)
       .setIgnoreGravity(false)
       .setSensor(true)
       .setAngularVelocity(0.15)

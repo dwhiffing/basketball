@@ -23,7 +23,13 @@ export default class extends Phaser.Scene {
     this.ball = new Ball(this)
     this.hoop = new Hoop(this)
     this.score = 0
-    this.input.on('pointerdown', this.ball.shoot)
+    this.input.on('pointerup', ({ downX, downY, upX, upY }) => {
+      const diffX = upX - downX
+      const diffY = downY - upY
+      if (diffY > 250) {
+        this.ball.shoot(diffX / 40)
+      }
+    })
 
     this.setScore = (score) => {
       this.score = score
