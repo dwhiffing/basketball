@@ -12,7 +12,7 @@ export default class {
 
     this.sensor = this.scene.matter.add.rectangle(
       this.scene.width / 2,
-      this.scene.height / 2 - 350,
+      this.scene.height / 2 - 320,
       50,
       50,
       {

@@ -21,6 +21,19 @@ export default class extends Phaser.Scene {
       })
       .setOrigin(0.5)
     this.scoreText.setShadow(2, 2, '#555', 2, true, true)
+    this.particles = this.add.particles('ball')
+
+    this.particles.createEmitter({
+      angle: { min: 240, max: 300 },
+      speed: { min: 400, max: 1200 },
+      quantity: { min: 8, max: 12 },
+      lifespan: 4000,
+      alpha: { start: 1, end: 0 },
+      scale: { min: 0.05, max: 0.4 },
+      rotate: { start: 0, end: 360, ease: 'Back.easeOut' },
+      gravityY: 1200,
+      on: false,
+    })
 
     this.ball = new Ball(this)
     this.hoop = new Hoop(this)
@@ -35,6 +48,7 @@ export default class extends Phaser.Scene {
     this.setScore = (score) => {
       this.score = score
       this.scoreText.setText(score)
+      this.particles.emitParticleAt(this.ball.x, this.ball.y)
     }
   }
 
@@ -44,6 +58,7 @@ export default class extends Phaser.Scene {
       this.ball.reset()
     }
     if (this.ball.body.isSensor && this.ball.body.velocity.y > 0) {
+      console.log(this.ball.body.isSensor, this.ball.body.velocity.y)
       this.hoop.rim.setVisible(true)
       this.ball.setSensor(false)
     }
