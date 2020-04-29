@@ -12,13 +12,27 @@ export default class extends Phaser.Scene {
   }
 
   create() {
+    this.scoreText = this.add.text(
+      this.width / 2 - 40,
+      this.height / 2 - 570,
+      '0',
+      { fontSize: 120, color: '#efefef' },
+    )
+    this.scoreText.setShadow(2, 2, '#555', 2, true, true)
+
     this.ball = new Ball(this)
     this.hoop = new Hoop(this)
+    this.score = 0
     this.input.on('pointerdown', this.ball.shoot)
+
+    this.setScore = (score) => {
+      this.score = score
+      this.scoreText.setText(score)
+    }
   }
 
   update() {
-    if (this.ball.y > this.height + 400) {
+    if (this.hoop.rim.visible && this.ball.y > this.height + 400) {
       this.hoop.rim.setVisible(false)
       this.ball.reset()
     }

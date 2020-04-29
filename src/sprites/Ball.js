@@ -20,6 +20,12 @@ export default class extends Phaser.Physics.Matter.Sprite {
       .setIgnoreGravity(true)
       .setVisible(true)
 
+    if (this.scene.missed) {
+      this.scene.setScore(0)
+    }
+
+    this.scene.missed = true
+
     this.scene.tweens.add({
       targets: this,
       x: this.scene.width / 2,
@@ -31,7 +37,7 @@ export default class extends Phaser.Physics.Matter.Sprite {
   }
 
   shoot() {
-    this.setVelocity(Phaser.Math.RND.between(-5, 5), BALL.impulseVelocity)
+    this.setVelocity(Phaser.Math.RND.between(-3, 3), BALL.impulseVelocity)
       .setIgnoreGravity(false)
       .setSensor(true)
       .setAngularVelocity(0.15)
