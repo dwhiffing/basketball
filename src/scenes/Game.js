@@ -54,12 +54,11 @@ export default class extends Phaser.Scene {
 
   update() {
     if (this.hoop.rim.visible && this.ball.y > this.height + 400) {
-      this.hoop.rim.setVisible(false)
+      this.hoop.rim.setDepth(-10)
       this.ball.reset()
     }
     if (this.ball.body.isSensor && this.ball.body.velocity.y > 0) {
-      console.log(this.ball.body.isSensor, this.ball.body.velocity.y)
-      this.hoop.rim.setVisible(true)
+      this.hoop.rim.setDepth(10)
       this.ball.setSensor(false)
     }
   }
