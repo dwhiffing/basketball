@@ -22,15 +22,14 @@ export default class extends Phaser.Physics.Matter.Sprite {
 
     this.body.label = 'ball'
 
-    if (this.scene.missed) {
-      this.scene.setScore(0)
+    if (!this.scene.hasScored) {
+      this.scene.ui.resetScore()
     }
 
-    this.scene.missed = true
     this.canShoot = false
     const positionRange = Math.min(
       this.scene.width / 2 - 100,
-      this.scene.score * 50,
+      this.scene.ui.score * 50,
     )
     this.scene.tweens.add({
       targets: this,

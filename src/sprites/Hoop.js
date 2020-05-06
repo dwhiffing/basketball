@@ -41,9 +41,8 @@ export default class {
         return
       }
       if (ball.velocity.y > 0 && hoop.isSensor && !this.scene.hasScored) {
-        this.scene.setScore(this.scene.score + 1)
+        this.scene.ui.setScore(1)
         this.scene.hasScored = true
-        this.scene.missed = false
       }
     })
 
