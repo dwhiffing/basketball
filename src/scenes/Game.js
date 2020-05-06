@@ -13,6 +13,7 @@ export default class extends Phaser.Scene {
   }
 
   create() {
+    this.cat = this.matter.world.nextCategory()
     this.ui = new Interface(this)
     this.ball = new Ball(this)
     this.hoop = new Hoop(this)
@@ -31,9 +32,9 @@ export default class extends Phaser.Scene {
       this.hoop.rim.setDepth(-10)
       this.ball.reset()
     }
-    if (this.ball.body.isSensor && this.ball.body.velocity.y > 0) {
+    if (this.ball.y < this.cameras.main.height / 4) {
       this.hoop.rim.setDepth(10)
-      this.ball.setSensor(false)
+      this.ball.setCollidesWith([this.cat])
     }
   }
 }

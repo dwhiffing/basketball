@@ -1,13 +1,20 @@
+import { Y_OFFSET } from '../constants'
+
 export default class {
   constructor(scene) {
     this.scene = scene
     this.score = 0
     this.scoreText = this.scene.add
-      .text(scene.width / 2, scene.height / 2 - 510, `${this.score}`, {
-        fontSize: 120,
-        color: '#efefef',
-        align: 'center',
-      })
+      .text(
+        scene.width / 2,
+        scene.height / 2 - Y_OFFSET + 40,
+        `${this.score}`,
+        {
+          fontSize: 120,
+          color: '#efefef',
+          align: 'center',
+        },
+      )
       .setOrigin(0.5)
     this.scoreText.setShadow(2, 2, '#555', 2, true, true)
     this.particles = this.scene.add.particles('ball')
@@ -31,7 +38,7 @@ export default class {
       alpha: { start: 1, end: 0 },
       scale: { min: 0.05, max: 0.4 },
       rotate: { start: 0, end: 360, ease: 'Back.easeOut' },
-      GRAVITYY: 1200,
+      gravityY: 1800,
       on: false,
     })
   }

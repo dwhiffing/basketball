@@ -1,9 +1,9 @@
-export const BALL = {
-  bounce: 0.7,
-  friction: 0.005,
-  impulseVelocity: -58,
-  foregroundScale: 3.8,
-  backgroundScale: 2,
-  gravity: 2.5,
-  scaleTweenDuration: 1500,
-}
+export const BOUNCE = 0.7
+export const FRICTION = 0.005
+export const IMPULSE_VELOCITY = -69
+export const FOREGROUND_SCALE = 3.3
+export const BACKGROUND_SCALE = 2
+export const GRAVITY = 4.5
+export const SCALE_TWEEN_DURATION = 1200
+export const Y_OFFSET = 500
+export const RIM_SIZE = 170

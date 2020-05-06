@@ -1,4 +1,11 @@
-import { BALL } from '../constants'
+import {
+  FRICTION,
+  BOUNCE,
+  BACKGROUND_SCALE,
+  FOREGROUND_SCALE,
+  IMPULSE_VELOCITY,
+  SCALE_TWEEN_DURATION,
+} from '../constants'
 
 export default class extends Phaser.Physics.Matter.Sprite {
   constructor(scene) {
@@ -7,14 +14,16 @@ export default class extends Phaser.Physics.Matter.Sprite {
     this.scene = scene
     this.reset = this.reset.bind(this)
     this.shoot = this.shoot.bind(this)
+    this.setCollidesWith([this.scene.cat])
     this.setVisible(false)
       .setCircle()
-      .setFriction(BALL.friction)
-      .setBounce(BALL.bounce)
+      .setFriction(FRICTION)
+      .setBounce(BOUNCE)
+      .setScale(BACKGROUND_SCALE)
   }
 
   reset() {
-    this.setScale(BALL.backgroundScale)
+    this.setScale(BACKGROUND_SCALE)
       .setAngularVelocity(0)
       .setVelocity(0, 0)
       .setIgnoreGravity(true)
@@ -38,7 +47,7 @@ export default class extends Phaser.Physics.Matter.Sprite {
         this.scene.width / 2 + positionRange,
       ),
       y: this.scene.height / 2 + 600,
-      scale: BALL.foregroundScale,
+      scale: FOREGROUND_SCALE,
       onComplete: () => {
         this.scene.hasScored = false
         this.canShoot = true
@@ -54,15 +63,15 @@ export default class extends Phaser.Physics.Matter.Sprite {
     }
     this.canShoot = false
     this.scene.hasScored = false
-    this.setVelocity(x, BALL.impulseVelocity)
+    this.setVelocity(x, IMPULSE_VELOCITY)
       .setIgnoreGravity(false)
-      .setSensor(true)
-      .setAngularVelocity(0.15)
+      .setAngularVelocity(0.2)
 
+    this.setCollidesWith([])
     this.scene.tweens.add({
       targets: this,
-      scale: BALL.backgroundScale,
-      duration: BALL.scaleTweenDuration,
+      scale: BACKGROUND_SCALE,
+      duration: SCALE_TWEEN_DURATION,
       ease: 'Sine.easeInOut',
     })
   }

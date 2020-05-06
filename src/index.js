@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 import * as scenes from './scenes'
-import { BALL } from './constants'
+import { GRAVITY } from './constants'
 
 var config = {
   type: Phaser.AUTO,
@@ -12,7 +12,7 @@ var config = {
     default: 'matter',
     matter: {
       // debug: true,
-      gravity: { y: BALL.gravity },
+      gravity: { y: GRAVITY },
     },
   },
   scale: {
