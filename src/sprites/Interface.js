@@ -4,6 +4,19 @@ export default class {
   constructor(scene) {
     this.scene = scene
     this.score = 0
+    this.time = 30
+    this.timeText = this.scene.add
+      .text(
+        scene.width / 2,
+        scene.height / 2 - Y_OFFSET - 130,
+        `${this.time}`,
+        {
+          fontSize: 100,
+          color: '#efefef',
+          align: 'center',
+        },
+      )
+      .setOrigin(0.5)
     this.scoreText = this.scene.add
       .text(
         scene.width / 2,
@@ -16,11 +29,28 @@ export default class {
         },
       )
       .setOrigin(0.5)
+    this.timeText.setShadow(2, 2, '#555', 2, true, true)
+
+    this.event = this.scene.time.addEvent({
+      delay: 1000,
+      repeat: -1,
+      callback: () => {
+        this.timeText.text = --this.time
+        if (this.time === 0) {
+          this.scene.scene.start('Game')
+        }
+      },
+    })
+
     this.scoreText.setShadow(2, 2, '#555', 2, true, true)
     this.particles = this.scene.add.particles('ball')
 
     this.setScore = (score = 0) => {
       this.score += score
+      if (score > 0) {
+        this.time += 2
+        this.timeText.text = this.time
+      }
       this.scoreText.setText(this.score)
       this.particles.emitParticleAt(scene.ball.x, scene.ball.y)
     }
