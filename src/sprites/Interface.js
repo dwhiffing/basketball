@@ -5,6 +5,7 @@ export default class {
     this.scene = scene
     this.score = 0
     this.time = 30
+    this.swishSound = scene.sound.add('swish', { volume: 0.5 })
     this.timeText = this.scene.add
       .text(scene.width / 2, scene.height - 50, `${this.time}`, {
         fontSize: 80,
@@ -55,6 +56,7 @@ export default class {
     this.particles = this.scene.add.particles('ball')
 
     this.setScore = (score = 0) => {
+      this.swishSound.play()
       this.score += score
       const timeup = Math.min(3, score)
       if (score > 0) {

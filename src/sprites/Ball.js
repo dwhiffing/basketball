@@ -15,6 +15,7 @@ export default class extends Phaser.Physics.Matter.Sprite {
     this.scene = scene
     this.reset = this.reset.bind(this)
     this.shoot = this.shoot.bind(this)
+    this.bounceSound = scene.sound.add('bounce', { volume: 0.6 })
     this.setCollidesWith([this.scene.cat])
     this.setVisible(false)
       .setCircle()
@@ -29,6 +30,8 @@ export default class extends Phaser.Physics.Matter.Sprite {
       .setVelocity(0, 0)
       .setIgnoreGravity(true)
       .setVisible(true)
+
+    this.bounceSound.play()
 
     this.body.label = 'ball'
 

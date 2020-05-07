@@ -22,7 +22,9 @@ export default class extends Phaser.Scene {
     //   'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js',
     // )
 
-    // this.load.audio('game', 'assets/audio/game.mp3')
+    this.load.audio('swish', 'assets/audio/swish.wav')
+    this.load.audio('rimSound', 'assets/audio/rim.mp3')
+    this.load.audio('bounce', 'assets/audio/bounce.mp3')
     this.load.image('ball', 'assets/images/ball.png')
     this.load.image('dot', 'assets/images/dot.png')
     this.load.image('rim', 'assets/images/rim.png')

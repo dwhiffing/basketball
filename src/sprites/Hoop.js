@@ -14,7 +14,9 @@ export default class {
     this.getTweenValue = this.getTweenValue.bind(this)
     this.moveBasket = this.moveBasket.bind(this)
     this.stopBasket = this.stopBasket.bind(this)
+    this.handleCollision = this.handleCollision.bind(this)
     this.rimSize = RIM_SIZES[0]
+    this.rimSound = scene.sound.add('rimSound', { volume: 0.15 })
 
     this.backboard = this.scene.add
       .image(this.scene.width / 2, this.scene.height / 2 - Y_OFFSET, 'hoop')
@@ -70,6 +72,7 @@ export default class {
     this.sensor.body.label = 'hoop'
     this.sensor.setCollisionCategory(this.scene.cat)
 
+    this.scene.matter.world.on('collisionstart', this.handleCollision)
     this.scene.matter.world.on('collisionactive', this.handleCollision)
   }
 
@@ -140,6 +143,9 @@ export default class {
     }
     if (pair.bodyB.label === 'hoop') {
       hoop = pair.bodyB
+    }
+    if (ball && !hoop) {
+      this.rimSound.play()
     }
     if (!ball || !hoop) {
       return
