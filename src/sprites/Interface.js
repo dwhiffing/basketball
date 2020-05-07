@@ -6,28 +6,18 @@ export default class {
     this.score = 0
     this.time = 30
     this.timeText = this.scene.add
-      .text(
-        scene.width / 2,
-        scene.height / 2 - Y_OFFSET - 130,
-        `${this.time}`,
-        {
-          fontSize: 100,
-          color: '#efefef',
-          align: 'center',
-        },
-      )
+      .text(scene.width / 2, 30, `${this.time}`, {
+        fontSize: 80,
+        color: '#efefef',
+        align: 'center',
+      })
       .setOrigin(0.5)
     this.scoreText = this.scene.add
-      .text(
-        scene.width / 2,
-        scene.height / 2 - Y_OFFSET + 40,
-        `${this.score}`,
-        {
-          fontSize: 120,
-          color: '#efefef',
-          align: 'center',
-        },
-      )
+      .text(scene.width / 2, 140, `${this.score}`, {
+        fontSize: 120,
+        color: '#efefef',
+        align: 'center',
+      })
       .setOrigin(0.5)
     this.timeText.setShadow(2, 2, '#555', 2, true, true)
 
