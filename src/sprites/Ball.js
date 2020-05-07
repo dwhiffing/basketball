@@ -5,6 +5,7 @@ import {
   FOREGROUND_SCALE,
   IMPULSE_VELOCITY,
   SCALE_TWEEN_DURATION,
+  BALL_OFFSETS,
 } from '../constants'
 
 export default class extends Phaser.Physics.Matter.Sprite {
@@ -31,21 +32,14 @@ export default class extends Phaser.Physics.Matter.Sprite {
 
     this.body.label = 'ball'
 
-    if (!this.scene.hasScored) {
-      this.scene.ui.resetScore()
-    }
-
     this.canShoot = false
-    const positionRange = Math.min(
-      this.scene.width / 2 - 100,
-      this.scene.ui.score * 50,
-    )
+    const positionRange = BALL_OFFSETS[this.scene.getDifficulty()]
+
     this.scene.tweens.add({
       targets: this,
-      x: Phaser.Math.RND.between(
-        this.scene.width / 2 - positionRange,
-        this.scene.width / 2 + positionRange,
-      ),
+      x:
+        this.scene.width / 2 +
+        Phaser.Math.RND.pick([-positionRange, positionRange]),
       y: this.scene.height / 2 + 600,
       scale: FOREGROUND_SCALE,
       onComplete: () => {

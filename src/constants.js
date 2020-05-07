@@ -6,4 +6,6 @@ export const BACKGROUND_SCALE = 2
 export const GRAVITY = 4.5
 export const SCALE_TWEEN_DURATION = 1200
 export const Y_OFFSET = 500
-export const RIM_SIZE = 170
+export const BALL_OFFSETS = [0, 200, 300, 400, 400]
+export const RIM_SIZES = [180, 180, 160, 150, 150]
+export const HOOP_DURATIONS = [-1, -1, -1, 2000, 2000]

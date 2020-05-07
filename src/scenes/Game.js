@@ -13,6 +13,7 @@ export default class extends Phaser.Scene {
   }
 
   create() {
+    this.difficulty = 0
     this.cat = this.matter.world.nextCategory()
     this.ui = new Interface(this)
     this.ball = new Ball(this)
@@ -31,10 +32,31 @@ export default class extends Phaser.Scene {
     if (this.hoop.rim.visible && this.ball.y > this.height + 400) {
       this.hoop.rim.setDepth(-10)
       this.ball.reset()
+      this.hoop.reset()
     }
     if (this.ball.y < this.cameras.main.height / 4) {
       this.hoop.rim.setDepth(10)
       this.ball.setCollidesWith([this.cat])
     }
+  }
+
+  getDifficulty() {
+    if (this.ui.score < 3) {
+      return 0
+    }
+
+    if (this.ui.score < 11) {
+      return 1
+    }
+
+    if (this.ui.score < 25) {
+      return 2
+    }
+
+    if (this.ui.score < 50) {
+      return 3
+    }
+
+    return 4
   }
 }
