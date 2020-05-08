@@ -33,7 +33,8 @@ export default class extends Phaser.Scene {
         'Score Drop points for sinking hoops.\nOne free play per day.',
         {
           fontSize: 32,
-          fontFamily: 'Sailec',
+          fontFamily: 'SF Pro Text, sans-serif',
+          letterSpacing: 1,
           color: '#fff',
           align: 'center',
         },

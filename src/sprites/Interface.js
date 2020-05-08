@@ -1,3 +1,5 @@
+import { COUNT_IN_TIME } from '../constants'
+
 const getTextConfig = (fontSize = 80) => ({
   fontSize,
   fontFamily: 'Sailec',
@@ -15,16 +17,19 @@ export default class {
     this.setScore = this.setScore.bind(this)
     this.start = this.start.bind(this)
 
+    let countInTime = COUNT_IN_TIME
     this.countDownText = this.scene.add
-      .text(width / 2, height / 2, '3', getTextConfig(150))
+      .text(width / 2, height / 2, countInTime.toString(), getTextConfig(150))
       .setOrigin(0.5)
 
-    let countInTime = 3
     this.scene.time.addEvent({
-      repeat: 2,
-      delay: 1000,
+      repeat: countInTime,
+      delay: countInTime === 0 ? 0 : 1000,
       callback: () => {
-        if (countInTime === 1) {
+        if (this.started) {
+          return
+        }
+        if (countInTime <= 1) {
           this.countDownText.text = ''
           this.start()
         } else {
@@ -36,6 +41,7 @@ export default class {
 
   start() {
     const { width, height } = this.scene
+    this.started = true
 
     this.timeText = this.scene.add
       .text(width / 2, 130, `00:${this.time}`, getTextConfig(80))
@@ -78,32 +84,35 @@ export default class {
           if (this.time === 0 && !this.ended) {
             this.ended = true
             this.buzzerSound.play()
-            if (!this.scene.hasShot) {
-              this.scene.time.addEvent({
-                delay: 1000,
-                callback: () => this.scene.scene.start('Game'),
-              })
-            }
+            this.scene.time.addEvent({
+              delay: 1000,
+              callback: () => {
+                if (!this.scene.hasShot) {
+                  this.scene.scene.start('Score', { score: this.score })
+                }
+              },
+            })
           }
         }
       },
     })
+
+    this.scene.start()
   }
 
   setScore(score = 0) {
+    const { width, height } = this.scene
     this.swishSound.play()
     this.score += score
     const timeup = Math.min(3, score)
-    if (score > 0) {
+    if (score > 0 && !this.ended) {
       this.time += timeup
       this.timeText.text = `00:${this.time.toString().padStart(2, '0')}`
     }
-    this.particles.emitParticleAt(
-      this.scene.hoop.sensor.x,
-      this.height / 2 - 200,
-    )
+
+    this.particles.emitParticleAt(this.scene.hoop.sensor.x, height / 2 - 200)
     this.timeUpText.text = `+${timeup}`
-    this.timeUpText.x = this.width / 2
+    this.timeUpText.x = width / 2
     this.timeUpText.y = 50
     this.timeUpText.alpha = 1
     this.tween = this.scene.sys.tweens.add({
@@ -115,12 +124,12 @@ export default class {
     this.scoreText.setText(this.score)
     this.scoreUpText.text = `+${score}`
     this.scoreUpText.x = this.scene.hoop.sensor.x
-    this.scoreUpText.y = this.height / 2 - 50
+    this.scoreUpText.y = height / 2 - 50
     this.scoreUpText.alpha = 1
     this.tween = this.scene.sys.tweens.add({
       duration: 2000,
       targets: [this.scoreUpText],
-      y: this.height / 2 - 150,
+      y: height / 2 - 150,
       alpha: 0,
     })
   }

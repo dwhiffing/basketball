@@ -10,16 +10,13 @@ export default class extends Phaser.Scene {
   init() {
     this.width = this.cameras.main.width
     this.height = this.cameras.main.height
+    console.log('init')
   }
 
   create() {
     this.difficulty = 0
     this.cat = this.matter.world.nextCategory()
     this.ui = new Interface(this)
-    this.time.addEvent({
-      delay: 3000,
-      callback: this.start.bind(this),
-    })
   }
 
   start() {
@@ -48,7 +45,7 @@ export default class extends Phaser.Scene {
         this.ball.reset()
         this.hoop.reset()
       } else {
-        this.scene.start('Game')
+        this.scene.start('Score', { score: this.ui.score })
       }
     }
     if (this.ball.y < this.cameras.main.height / 4) {
