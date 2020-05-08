@@ -16,6 +16,13 @@ export default class extends Phaser.Scene {
     this.difficulty = 0
     this.cat = this.matter.world.nextCategory()
     this.ui = new Interface(this)
+    this.time.addEvent({
+      delay: 3000,
+      callback: this.start.bind(this),
+    })
+  }
+
+  start() {
     this.ball = new Ball(this)
     this.hoop = new Hoop(this)
 
@@ -30,6 +37,10 @@ export default class extends Phaser.Scene {
   }
 
   update() {
+    if (!this.ball || !this.hoop) {
+      return
+    }
+
     if (this.hoop.rim.visible && this.ball.y > this.height + 400) {
       this.hoop.rim.setDepth(-1)
       if (this.ui.time > 0) {

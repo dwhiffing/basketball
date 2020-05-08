@@ -26,6 +26,7 @@ export default class extends Phaser.Scene {
     this.load.audio('buzzer', 'assets/audio/buzzer.mp3')
     this.load.audio('rimSound', 'assets/audio/rim.mp3')
     this.load.audio('bounce', 'assets/audio/bounce.mp3')
+    this.load.image('playButton', 'assets/images/button.png')
     this.load.image('ball', 'assets/images/ball.png')
     this.load.image('dot', 'assets/images/dot.png')
     this.load.image('rim', 'assets/images/rim.png')
@@ -33,12 +34,12 @@ export default class extends Phaser.Scene {
 
     this.load.on('complete', () => {
       WebFont.load({
-        google: {
+        custom: {
           families: ['Sailec'],
         },
         active: () => {
           progress.destroy()
-          this.scene.start('Game')
+          this.scene.start('Menu')
         },
       })
     })
