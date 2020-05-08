@@ -15,7 +15,7 @@ export default class extends Phaser.Scene {
       .setScale(1)
       .setInteractive()
       .on('pointerdown', () => {
-        this.scene.start('Menu')
+        this.scene.start('Game')
       })
 
     this.add

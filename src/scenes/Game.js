@@ -10,7 +10,7 @@ export default class extends Phaser.Scene {
   init() {
     this.width = this.cameras.main.width
     this.height = this.cameras.main.height
-    console.log('init')
+    this.ended = false
   }
 
   create() {
@@ -34,7 +34,7 @@ export default class extends Phaser.Scene {
   }
 
   update() {
-    if (!this.ball || !this.hoop) {
+    if (this.ended || !this.ball || !this.ball.body || !this.hoop) {
       return
     }
 
@@ -45,10 +45,13 @@ export default class extends Phaser.Scene {
         this.ball.reset()
         this.hoop.reset()
       } else {
+        this.ball.destroy()
+        this.hoop.destroy()
+        this.ended = true
         this.scene.start('Score', { score: this.ui.score })
       }
     }
-    if (this.ball.y < this.cameras.main.height / 4) {
+    if (this.ball.body && this.ball.y < this.cameras.main.height / 4) {
       this.hoop.rim.setDepth(10)
       this.ball.setCollidesWith([this.cat])
     }
@@ -59,7 +62,7 @@ export default class extends Phaser.Scene {
       return 0
     }
 
-    if (this.ui.score < 11) {
+    if (this.ui.score < 10) {
       return 1
     }
 
@@ -67,7 +70,7 @@ export default class extends Phaser.Scene {
       return 2
     }
 
-    if (this.ui.score < 50) {
+    if (this.ui.score < 40) {
       return 3
     }
 

@@ -14,6 +14,7 @@ export default class {
     this.getTweenValue = this.getTweenValue.bind(this)
     this.moveBasket = this.moveBasket.bind(this)
     this.stopBasket = this.stopBasket.bind(this)
+    this.destroy = this.destroy.bind(this)
     this.handleCollision = this.handleCollision.bind(this)
     this.rimSize = RIM_SIZES[0]
     this.rimSound = scene.sound.add('rimSound', { volume: 0.15 })
@@ -169,5 +170,13 @@ export default class {
         ? this.scene.cameras.main.width - X_OFFSET
         : X_OFFSET
     return newValue + diff
+  }
+
+  destroy() {
+    this.rim.destroy()
+    this.backboard.destroy()
+    this.rimL.destroy()
+    this.rimR.destroy()
+    this.sensor.destroy()
   }
 }

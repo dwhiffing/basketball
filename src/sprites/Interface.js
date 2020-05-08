@@ -1,4 +1,4 @@
-import { COUNT_IN_TIME } from '../constants'
+import { TIMER_START, COUNT_IN_TIME } from '../constants'
 
 const getTextConfig = (fontSize = 80) => ({
   fontSize,
@@ -11,7 +11,7 @@ export default class {
     this.scene = scene
     const { width, height } = scene
     this.score = 0
-    this.time = 30
+    this.time = TIMER_START
     this.swishSound = scene.sound.add('swish', { volume: 0.5 })
     this.buzzerSound = scene.sound.add('buzzer', { volume: 0.5 })
     this.setScore = this.setScore.bind(this)
@@ -88,6 +88,9 @@ export default class {
               delay: 1000,
               callback: () => {
                 if (!this.scene.hasShot) {
+                  this.scene.ball.destroy()
+                  this.scene.hoop.destroy()
+                  this.ended = true
                   this.scene.scene.start('Score', { score: this.score })
                 }
               },
