@@ -1,11 +1,11 @@
 export const BOUNCE = 0.7
 export const FRICTION = 0.005
 export const IMPULSE_VELOCITY = -69
-export const FOREGROUND_SCALE = 3.3
-export const BACKGROUND_SCALE = 2
+export const FOREGROUND_SCALE = 1.8
+export const BACKGROUND_SCALE = 1.2
 export const GRAVITY = 4.5
 export const SCALE_TWEEN_DURATION = 1200
-export const Y_OFFSET = 500
+export const Y_OFFSET = 450
 export const BALL_OFFSETS = [0, 200, 300, 400, 400]
-export const RIM_SIZES = [180, 180, 160, 150, 150]
+export const RIM_SIZES = [190, 190, 180, 180, 170]
 export const HOOP_DURATIONS = [-1, -1, -1, 2000, 2000]

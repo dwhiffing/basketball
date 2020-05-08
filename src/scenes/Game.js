@@ -23,6 +23,7 @@ export default class extends Phaser.Scene {
       const diffX = upX - downX
       const diffY = downY - upY
       if (diffY > 250) {
+        this.hasShot = true
         this.ball.shoot(diffX / 40)
       }
     })
@@ -30,9 +31,14 @@ export default class extends Phaser.Scene {
 
   update() {
     if (this.hoop.rim.visible && this.ball.y > this.height + 400) {
-      this.hoop.rim.setDepth(-10)
-      this.ball.reset()
-      this.hoop.reset()
+      this.hoop.rim.setDepth(-1)
+      if (this.ui.time > 0) {
+        this.hasShot = false
+        this.ball.reset()
+        this.hoop.reset()
+      } else {
+        this.scene.start('Game')
+      }
     }
     if (this.ball.y < this.cameras.main.height / 4) {
       this.hoop.rim.setDepth(10)

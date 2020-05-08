@@ -17,12 +17,13 @@ export default class extends Phaser.Scene {
       )
     })
 
-    // this.load.script(
-    //   'webfont',
-    //   'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js',
-    // )
+    this.load.script(
+      'webfont',
+      'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js',
+    )
 
     this.load.audio('swish', 'assets/audio/swish.wav')
+    this.load.audio('buzzer', 'assets/audio/buzzer.mp3')
     this.load.audio('rimSound', 'assets/audio/rim.mp3')
     this.load.audio('bounce', 'assets/audio/bounce.mp3')
     this.load.image('ball', 'assets/images/ball.png')
@@ -31,15 +32,15 @@ export default class extends Phaser.Scene {
     this.load.image('hoop', 'assets/images/hoop.png')
 
     this.load.on('complete', () => {
-      // WebFont.load({
-      //   google: {
-      //     families: ['Space Mono'],
-      //   },
-      //   active: () => {
-      progress.destroy()
-      this.scene.start('Game')
-      // },
-      // })
+      WebFont.load({
+        google: {
+          families: ['Sailec'],
+        },
+        active: () => {
+          progress.destroy()
+          this.scene.start('Game')
+        },
+      })
     })
   }
 }

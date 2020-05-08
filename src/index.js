@@ -6,7 +6,7 @@ var config = {
   type: Phaser.AUTO,
   width: 1080,
   height: 1920,
-  backgroundColor: '#fff',
+  backgroundColor: '#166273',
   parent: 'phaser-example',
   physics: {
     default: 'matter',

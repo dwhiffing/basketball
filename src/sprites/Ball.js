@@ -43,7 +43,7 @@ export default class extends Phaser.Physics.Matter.Sprite {
       x:
         this.scene.width / 2 +
         Phaser.Math.RND.pick([-positionRange, positionRange]),
-      y: this.scene.height / 2 + 600,
+      y: this.scene.height / 2 + 500,
       scale: FOREGROUND_SCALE,
       onComplete: () => {
         this.scene.hasScored = false
@@ -62,7 +62,7 @@ export default class extends Phaser.Physics.Matter.Sprite {
     this.scene.hasScored = false
     this.setVelocity(x, IMPULSE_VELOCITY)
       .setIgnoreGravity(false)
-      .setAngularVelocity(0.2)
+      .setAngularVelocity(x > 0 ? 0.2 : -0.2)
 
     this.setCollidesWith([])
     this.scene.tweens.add({

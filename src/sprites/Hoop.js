@@ -1,9 +1,9 @@
 import { Y_OFFSET, RIM_SIZES, HOOP_DURATIONS } from '../constants'
 
 const X_OFFSET = 200
-const RIM_Y_OFFSET = 150
-const SENSOR_Y_OFFSET = 270
-const RIM_SCALE = 3
+const RIM_Y_OFFSET = 188
+const SENSOR_Y_OFFSET = 320
+const RIM_SCALE = 1.3
 const RIM_FRICTION = 0.005
 
 // TODO: during first tween, rim points aren't position correctly
@@ -79,8 +79,8 @@ export default class {
   reset() {
     this.rimSize = RIM_SIZES[this.scene.getDifficulty()]
     this.rim.setScale(RIM_SCALE * (this.rimSize / RIM_Y_OFFSET), RIM_SCALE)
-    this.rimR.x = this.scene.width / 2 + this.rimSize
-    this.rimL.x = this.scene.width / 2 - this.rimSize
+    this.rimR.x = this.scene.width / 2 + (this.rimSize - 10)
+    this.rimL.x = this.scene.width / 2 - (this.rimSize - 10)
     this.sensor.setScale(this.rimSize / 20, 2)
     const hoopDuration = HOOP_DURATIONS[this.scene.getDifficulty()]
     if (hoopDuration > 0 && this.currentDuration !== hoopDuration) {
